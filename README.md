@@ -16,7 +16,7 @@
 
 > MIDI keyboardは何でも問題ありませんが, 推奨機種は Korg の [nanoKEY2](http://www.korg.com/jp/products/computergear/nanokey2/) です
 
-## How to play
+## How to build 
 ```
 git clone https://github.com/suzukiplan/vgs-keyboard.git
 cd vgs-keyboard
