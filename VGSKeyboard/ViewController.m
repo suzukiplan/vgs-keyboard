@@ -7,13 +7,15 @@
 //
 
 #import "ViewController.h"
+#import "MIKMIDI.h"
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
+    NSArray* availableMIDIDevices = [[MIKMIDIDeviceManager sharedDeviceManager] availableDevices];
+    NSLog(@"availableMIDIDevices: %@", availableMIDIDevices);
 }
 
 
