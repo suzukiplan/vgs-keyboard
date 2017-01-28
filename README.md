@@ -10,6 +10,7 @@
 [3 Clause BSD](LICENSE.txt)
 
 ## Requires
+完成した段階で Windows にも移植するつもりですが, 開発段階では Mac限定 で公開する方針です。（私のメイン環境が Mac なので）
 - Mac OSX / mac OS
 - XCode
 - MIDI keyboard (24 keys)
