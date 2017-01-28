@@ -14,8 +14,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSArray* availableMIDIDevices = [[MIKMIDIDeviceManager sharedDeviceManager] availableDevices];
-    NSLog(@"availableMIDIDevices: %@", availableMIDIDevices);
+    MIKMIDIDeviceManager* dm = [MIKMIDIDeviceManager sharedDeviceManager];
+    NSArray<MIKMIDIDevice*>* devices = [dm availableDevices];
+    for (MIKMIDIDevice* device in devices) {
+        NSArray<MIKMIDIEntity*>* entities = device.entities;
+        for (MIKMIDIEntity* entity in entities) {
+            NSArray<MIKMIDISourceEndpoint*>* sources = entity.sources;
+            for (MIKMIDISourceEndpoint* source in sources) {
+                NSLog(@"source: %@", source);
+                [dm connectInput:source error:nil eventHandler:^(MIKMIDISourceEndpoint * _Nonnull source, NSArray<MIKMIDICommand *> * _Nonnull commands) {
+                    NSLog(@"detected commands: %@", commands);
+                }];
+            }
+            NSArray<MIKMIDIDestinationEndpoint*>* destinations = entity.destinations;
+            for (MIKMIDIDestinationEndpoint* destination in destinations) {
+                NSLog(@"destination: %@", destination);
+            }
+        }
+    }
+}
+
+- (void)didRespond {
+    
 }
 
 
