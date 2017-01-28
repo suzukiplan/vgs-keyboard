@@ -2,4 +2,8 @@ Podfile.lock
 Pods/
 VGSKeyboard.xcworkspace/
 */xcuserdata
+romdata.bin
+*.CHR
+*.EFF
+*.BGM
 

@@ -17,7 +17,12 @@
 		7485EFEA1E3CA80500D1E0B7 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFE21E3CA80500D1E0B7 /* miniz.c */; };
 		7485EFEB1E3CA80500D1E0B7 /* vgs2tone.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFE41E3CA80500D1E0B7 /* vgs2tone.c */; };
 		7485EFEC1E3CA80500D1E0B7 /* vgsdec.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFE61E3CA80500D1E0B7 /* vgsdec.c */; };
-		7485EFED1E3CA80500D1E0B7 /* vgsdec.def in Resources */ = {isa = PBXBuildFile; fileRef = 7485EFE71E3CA80500D1E0B7 /* vgsdec.def */; };
+		7485EFF21E3CAB1600D1E0B7 /* vgs2api.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFF01E3CAB1600D1E0B7 /* vgs2api.c */; };
+		7485EFF31E3CAB1600D1E0B7 /* vgs2i.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFF11E3CAB1600D1E0B7 /* vgs2i.c */; };
+		7485EFF81E3CF7AB00D1E0B7 /* VGSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFF51E3CF7AB00D1E0B7 /* VGSView.m */; };
+		7485EFF91E3CF7AB00D1E0B7 /* VGSLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFF71E3CF7AB00D1E0B7 /* VGSLayer.m */; };
+		7485EFFB1E3CF9E200D1E0B7 /* romdata.bin in Resources */ = {isa = PBXBuildFile; fileRef = 7485EFFA1E3CF9E200D1E0B7 /* romdata.bin */; };
+		7485EFFF1E3CFB1400D1E0B7 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFFD1E3CFB1400D1E0B7 /* game.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +42,17 @@
 		7485EFE41E3CA80500D1E0B7 /* vgs2tone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vgs2tone.c; path = "vgs-bgm-decoder/src/vgs2tone.c"; sourceTree = SOURCE_ROOT; };
 		7485EFE51E3CA80500D1E0B7 /* vgsdec_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgsdec_internal.h; path = "vgs-bgm-decoder/src/vgsdec_internal.h"; sourceTree = SOURCE_ROOT; };
 		7485EFE61E3CA80500D1E0B7 /* vgsdec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vgsdec.c; path = "vgs-bgm-decoder/src/vgsdec.c"; sourceTree = SOURCE_ROOT; };
-		7485EFE71E3CA80500D1E0B7 /* vgsdec.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vgsdec.def; path = "vgs-bgm-decoder/src/vgsdec.def"; sourceTree = SOURCE_ROOT; };
 		7485EFE81E3CA80500D1E0B7 /* vgsdec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgsdec.h; path = "vgs-bgm-decoder/src/vgsdec.h"; sourceTree = SOURCE_ROOT; };
 		7485EFE91E3CA80500D1E0B7 /* vgstone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgstone.h; path = "vgs-bgm-decoder/src/vgstone.h"; sourceTree = SOURCE_ROOT; };
+		7485EFEF1E3CAB1600D1E0B7 /* vgs2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vgs2.h; sourceTree = "<group>"; };
+		7485EFF01E3CAB1600D1E0B7 /* vgs2api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vgs2api.c; sourceTree = "<group>"; };
+		7485EFF11E3CAB1600D1E0B7 /* vgs2i.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vgs2i.c; sourceTree = "<group>"; };
+		7485EFF41E3CF7AB00D1E0B7 /* VGSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGSView.h; sourceTree = "<group>"; };
+		7485EFF51E3CF7AB00D1E0B7 /* VGSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VGSView.m; sourceTree = "<group>"; };
+		7485EFF61E3CF7AB00D1E0B7 /* VGSLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGSLayer.h; sourceTree = "<group>"; };
+		7485EFF71E3CF7AB00D1E0B7 /* VGSLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VGSLayer.m; sourceTree = "<group>"; };
+		7485EFFA1E3CF9E200D1E0B7 /* romdata.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = romdata.bin; path = romdata/romdata.bin; sourceTree = SOURCE_ROOT; };
+		7485EFFD1E3CFB1400D1E0B7 /* game.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
 		798775E03DE28BEED16BFAC2 /* libPods-VGSKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VGSKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB44F818DE0A1CB2D74A3AC /* Pods-VGSKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGSKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VGSKeyboard/Pods-VGSKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		F73963A5167089A43F1640C5 /* Pods-VGSKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGSKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGSKeyboard/Pods-VGSKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -78,12 +91,19 @@
 		7485EFC81E3C747F00D1E0B7 /* VGSKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				7485EFFA1E3CF9E200D1E0B7 /* romdata.bin */,
+				7485EFFC1E3CFAFE00D1E0B7 /* main */,
+				7485EFEE1E3CAB0000D1E0B7 /* vgs2 */,
 				7485EFE11E3CA7F600D1E0B7 /* vgs-bgm-decoder */,
 				7485EFDD1E3CA79900D1E0B7 /* vgs-spu */,
 				7485EFC91E3C747F00D1E0B7 /* AppDelegate.h */,
 				7485EFCA1E3C747F00D1E0B7 /* AppDelegate.m */,
 				7485EFCF1E3C747F00D1E0B7 /* ViewController.h */,
 				7485EFD01E3C747F00D1E0B7 /* ViewController.m */,
+				7485EFF41E3CF7AB00D1E0B7 /* VGSView.h */,
+				7485EFF51E3CF7AB00D1E0B7 /* VGSView.m */,
+				7485EFF61E3CF7AB00D1E0B7 /* VGSLayer.h */,
+				7485EFF71E3CF7AB00D1E0B7 /* VGSLayer.m */,
 				7485EFD21E3C747F00D1E0B7 /* Assets.xcassets */,
 				7485EFD41E3C747F00D1E0B7 /* Main.storyboard */,
 				7485EFD71E3C747F00D1E0B7 /* Info.plist */,
@@ -117,11 +137,28 @@
 				7485EFE41E3CA80500D1E0B7 /* vgs2tone.c */,
 				7485EFE51E3CA80500D1E0B7 /* vgsdec_internal.h */,
 				7485EFE61E3CA80500D1E0B7 /* vgsdec.c */,
-				7485EFE71E3CA80500D1E0B7 /* vgsdec.def */,
 				7485EFE81E3CA80500D1E0B7 /* vgsdec.h */,
 				7485EFE91E3CA80500D1E0B7 /* vgstone.h */,
 			);
 			name = "vgs-bgm-decoder";
+			sourceTree = "<group>";
+		};
+		7485EFEE1E3CAB0000D1E0B7 /* vgs2 */ = {
+			isa = PBXGroup;
+			children = (
+				7485EFEF1E3CAB1600D1E0B7 /* vgs2.h */,
+				7485EFF01E3CAB1600D1E0B7 /* vgs2api.c */,
+				7485EFF11E3CAB1600D1E0B7 /* vgs2i.c */,
+			);
+			name = vgs2;
+			sourceTree = "<group>";
+		};
+		7485EFFC1E3CFAFE00D1E0B7 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				7485EFFD1E3CFB1400D1E0B7 /* game.c */,
+			);
+			name = main;
 			sourceTree = "<group>";
 		};
 		926E389F3E95DE9DFF8FDB9B /* Pods */ = {
@@ -202,8 +239,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7485EFFB1E3CF9E200D1E0B7 /* romdata.bin in Resources */,
 				7485EFD31E3C747F00D1E0B7 /* Assets.xcassets in Resources */,
-				7485EFED1E3CA80500D1E0B7 /* vgsdec.def in Resources */,
 				7485EFD61E3C747F00D1E0B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,11 +301,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				7485EFEA1E3CA80500D1E0B7 /* miniz.c in Sources */,
+				7485EFF81E3CF7AB00D1E0B7 /* VGSView.m in Sources */,
 				7485EFE01E3CA7A800D1E0B7 /* vgsspu_al.c in Sources */,
 				7485EFD11E3C747F00D1E0B7 /* ViewController.m in Sources */,
+				7485EFF91E3CF7AB00D1E0B7 /* VGSLayer.m in Sources */,
+				7485EFF31E3CAB1600D1E0B7 /* vgs2i.c in Sources */,
 				7485EFEB1E3CA80500D1E0B7 /* vgs2tone.c in Sources */,
 				7485EFCE1E3C747F00D1E0B7 /* main.m in Sources */,
 				7485EFEC1E3CA80500D1E0B7 /* vgsdec.c in Sources */,
+				7485EFFF1E3CFB1400D1E0B7 /* game.c in Sources */,
+				7485EFF21E3CAB1600D1E0B7 /* vgs2api.c in Sources */,
 				7485EFCB1E3C747F00D1E0B7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

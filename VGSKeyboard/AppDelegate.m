@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "vgs2.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,7 @@
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    vgs2_term();
 }
 
 
