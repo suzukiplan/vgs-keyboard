@@ -12,6 +12,7 @@
 #import "vgs2.h"
 
 int vgsint_init(const char *bin);
+extern int KEY_FLAG[256];
 
 @implementation ViewController
 
@@ -77,7 +78,13 @@ int vgsint_init(const char *bin);
             for (MIKMIDISourceEndpoint* source in sources) {
                 NSLog(@"source: %@", source);
                 [dm connectInput:source error:nil eventHandler:^(MIKMIDISourceEndpoint * _Nonnull source, NSArray<MIKMIDICommand *> * _Nonnull commands) {
-                    NSLog(@"detected commands: %@", commands);
+                    for (MIKMIDICommand* command in commands) {
+                        if (159 == command.commandType) {
+                            KEY_FLAG[command.dataByte1] = 1;
+                        } else if (143 == command.commandType) {
+                            KEY_FLAG[command.dataByte1] = 0;
+                        }
+                    }
                 }];
                 result = YES;
             }

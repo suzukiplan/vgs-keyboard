@@ -27,7 +27,7 @@ extern "C" {
  */
 #define APPNAME "Test"
 
-#define XSIZE 256
+#define XSIZE 320
 #define YSIZE 240
 
 #define SAMPLE_RATE 22050
