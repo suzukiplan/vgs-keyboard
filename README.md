@@ -20,7 +20,7 @@
 - [ ] 東方VGSの[赤より紅い夢](https://github.com/suzukiplan/Touhou-VGS-MML-data/blob/master/data/BSLOT000.mml)で遊べる状態にする
 
 ## License
-[3 Clause BSD](LICENSE.txt)
+[GPLv3](COPYING)
 
 ## Requirements 
 完成した段階で Windows にも移植するつもりですが, 開発段階では Mac限定 で公開する方針です。（私のメイン環境が Mac なので）
