@@ -100,17 +100,20 @@ int vgsint_init(const char *bin);
     } else {
         self.view.frame = CGRectMake(0, 0, 640, 480);
     }
-    if (self.view.frame.size.height < self.view.frame.size.width) {
+    const int aspectWidth = 4;
+    const int aspectHeight = 3;
+    CGFloat baseWidth = self.view.frame.size.width / aspectWidth;
+    CGFloat baseHeight = self.view.frame.size.height / aspectHeight;
+    if (baseHeight < baseWidth) {
         CGFloat height = self.view.frame.size.height;
-        CGFloat width = height / 3 * 4;
+        CGFloat width = height / aspectHeight * aspectWidth;
         CGFloat x = (self.view.frame.size.width - width) / 2;
         return NSRectFromCGRect(CGRectMake(x, 0, width, height));
-    } else {
-        CGFloat width = self.view.frame.size.width;
-        CGFloat height = width / 4 * 3;
-        CGFloat y = (self.view.frame.size.height - height) / 2;
-        return NSRectFromCGRect(CGRectMake(0, y, width, height));
     }
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = width / aspectWidth * aspectHeight;
+    CGFloat y = (self.view.frame.size.height - height) / 2;
+    return NSRectFromCGRect(CGRectMake(0, y, width, height));
 }
 
 - (void)viewWillAppear
