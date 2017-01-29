@@ -68,18 +68,22 @@ void draw_keyboard(int x, int y) {
     }
     x += 10;
     for (i = 0; i < 2; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 1, y, i * 20 + x + 15, y + 41, 1);
         vgs2_boxfSP(i * 20 + x + 2, y, i * 20 + x + 14, y + 40, KEY_FLAG[KEY_MAP[n]] ? 31 : 96);
     }
     x += 60;
     for (i = 0; i < 3; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 1, y, i * 20 + x + 15, y + 41, 1);
         vgs2_boxfSP(i * 20 + x + 2, y, i * 20 + x + 14, y + 40, KEY_FLAG[KEY_MAP[n]] ? 31 : 96);
     }
     x += 80;
     for (i = 0; i < 2; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 1, y, i * 20 + x + 15, y + 41, 1);
         vgs2_boxfSP(i * 20 + x + 2, y, i * 20 + x + 14, y + 40, KEY_FLAG[KEY_MAP[n]] ? 31 : 96);
     }
     x += 60;
     for (i = 0; i < 3; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 1, y, i * 20 + x + 15, y + 41, 1);
         vgs2_boxfSP(i * 20 + x + 2, y, i * 20 + x + 14, y + 40, KEY_FLAG[KEY_MAP[n]] ? 31 : 96);
     }
 }
