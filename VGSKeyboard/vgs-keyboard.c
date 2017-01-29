@@ -68,7 +68,7 @@ void vgskey_exec(void* data, size_t size)
     for (i = 0; i < 24; i++) {
         // 初期値設定
         if (!KS[i].tone) {
-            KS[i].tone = TONE3[KS[i].note];
+            KS[i].tone = TONE2[KS[i].note];
         }
         // 現在のキー入力状態を保持
         KS[i].on = KEY_FLAG[KS[i].note];
@@ -78,7 +78,7 @@ void vgskey_exec(void* data, size_t size)
             KS[i].cur++;
             if (KS[i].pow) {
                 w = KS[i].tone[(1 + KS[i].cur) % KS[i].tone[0]];
-                w *= KS[i].pow * 16;
+                w *= KS[i].pow * 32;
                 w /= KS[i].max;
                 ww = s[j] + w;
                 if (32767 < ww) ww = 32767;
