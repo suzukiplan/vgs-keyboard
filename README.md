@@ -30,7 +30,8 @@
 - VGS mk-II CLIs
 - MIDI keyboard (24 keys)
 
-> MIDI keyboardは24鍵以上のものであれば何でも問題ありませんが, 推奨機種は Korg の [nanoKEY2](http://www.korg.com/jp/products/computergear/nanokey2/) です
+> - MIDI keyboardは24鍵以上のものであれば何でも問題ありませんが, 推奨機種は Korg の [nanoKEY2](http://www.korg.com/jp/products/computergear/nanokey2/) です
+> - Core MIDI を使って実装しているので, 将来的には iPad にも対応するかもしれません（その前提でキーボードではなく, タッチインタフェースを意識したUI設計にするかもしれません）
 
 ## How to build 
 ```
