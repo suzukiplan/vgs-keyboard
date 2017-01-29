@@ -7,6 +7,7 @@
  */
 #include "vgs2.h"
 #include "vgsdec.h"
+#include "vgs-keyboard.h"
 
 /*
  *----------------------------------------------------------------------------
@@ -78,6 +79,7 @@ void sndbuf(void *data, size_t size)
     if (!_bstop && vgsdec_get_value(_psg, VGSDEC_REG_PLAYING)) {
         vgsdec_execute(_psg, buf, size);
     }
+    vgskey_exec(buf, size);
 
     for (i = 0; i < 256; i++) {
         if (_eff[i].flag) {

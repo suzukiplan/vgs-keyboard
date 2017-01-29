@@ -23,6 +23,7 @@
 		7485EFF91E3CF7AB00D1E0B7 /* VGSLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFF71E3CF7AB00D1E0B7 /* VGSLayer.m */; };
 		7485EFFB1E3CF9E200D1E0B7 /* romdata.bin in Resources */ = {isa = PBXBuildFile; fileRef = 7485EFFA1E3CF9E200D1E0B7 /* romdata.bin */; };
 		7485EFFF1E3CFB1400D1E0B7 /* game.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485EFFD1E3CFB1400D1E0B7 /* game.c */; };
+		7485F0021E3DC7EE00D1E0B7 /* vgs-keyboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 7485F0001E3DC7EE00D1E0B7 /* vgs-keyboard.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,8 @@
 		7485EFF71E3CF7AB00D1E0B7 /* VGSLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VGSLayer.m; sourceTree = "<group>"; };
 		7485EFFA1E3CF9E200D1E0B7 /* romdata.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = romdata.bin; path = romdata/romdata.bin; sourceTree = SOURCE_ROOT; };
 		7485EFFD1E3CFB1400D1E0B7 /* game.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
+		7485F0001E3DC7EE00D1E0B7 /* vgs-keyboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "vgs-keyboard.c"; sourceTree = "<group>"; };
+		7485F0011E3DC7EE00D1E0B7 /* vgs-keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vgs-keyboard.h"; sourceTree = "<group>"; };
 		798775E03DE28BEED16BFAC2 /* libPods-VGSKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VGSKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB44F818DE0A1CB2D74A3AC /* Pods-VGSKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGSKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VGSKeyboard/Pods-VGSKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		F73963A5167089A43F1640C5 /* Pods-VGSKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGSKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGSKeyboard/Pods-VGSKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				7485EFFD1E3CFB1400D1E0B7 /* game.c */,
+				7485F0001E3DC7EE00D1E0B7 /* vgs-keyboard.c */,
+				7485F0011E3DC7EE00D1E0B7 /* vgs-keyboard.h */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				7485EFFF1E3CFB1400D1E0B7 /* game.c in Sources */,
 				7485EFF21E3CAB1600D1E0B7 /* vgs2api.c in Sources */,
 				7485EFCB1E3C747F00D1E0B7 /* AppDelegate.m in Sources */,
+				7485F0021E3DC7EE00D1E0B7 /* vgs-keyboard.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
