@@ -74,9 +74,27 @@ struct Note {
     int x;
 };
 
+struct ScoreElement {
+    int pos;
+    int interval;
+};
+
+#define L4 60
+
+struct ScoreElement KAERU[] = {
+    {12, L4}, {14, L4}, {16, L4}, {17, L4}, {16, L4}, {14, L4}, {12, L4 * 2},
+    {16, L4}, {17, L4}, {19, L4}, {21, L4}, {19, L4}, {17, L4}, {16, L4 * 2},
+    {12, L4 * 2}, {12, L4 * 2}, {12, L4 * 2}, {12, L4 * 2},
+    {12, L4 / 2}, {12, L4 / 2}, {14, L4 / 2}, {14, L4 / 2}, {16, L4 / 2}, {16, L4 / 2},
+    {17, L4 / 2}, {17, L4 / 2}, {16, L4}, {14, L4}, {12, L4 * 4},
+    {0, 0}
+};
+
 struct GameTable {
     struct Note n[MAX_NOTE];
     int n_idx;
+    int spos;
+    int z;
 } TBL;
 
 void add_note(int pos) {
@@ -162,8 +180,21 @@ int vgs2_init() {
 
 int vgs2_loop() {
     static unsigned int frame;
+    if (0 == frame) {
+        add_note(KAERU[TBL.spos].pos + TBL.z);
+    }
     frame++;
-    if (frame % 48 == 0) add_note(vgs2_rand() % 24);
+    if (KAERU[TBL.spos].interval <= frame) {
+        frame = 0;
+        TBL.spos++;
+        if (!KAERU[TBL.spos].interval) {
+            TBL.spos = 0;
+            TBL.z--;
+            if (-12 == TBL.z) {
+                TBL.z = 0;
+            }
+        }
+    }
     draw_lane(20, 180);
     draw_notes();
     draw_keyboard(20, 180);
