@@ -72,6 +72,7 @@ struct Note {
     int fy;
     int y;
     int x;
+    int gx;
 };
 
 struct ScoreElement {
@@ -79,7 +80,7 @@ struct ScoreElement {
     int interval;
 };
 
-#define L4 60
+#define L4 40
 
 struct ScoreElement KAERU[] = {
     {12, L4}, {14, L4}, {16, L4}, {17, L4}, {16, L4}, {14, L4}, {12, L4 * 2},
@@ -100,9 +101,25 @@ struct GameTable {
 void add_note(int pos) {
     TBL.n[TBL.n_idx].flag = 1;
     TBL.n[TBL.n_idx].pos = pos;
-    TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20;
+    TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20 + 1;
     TBL.n[TBL.n_idx].y = -4;
     TBL.n[TBL.n_idx].fy = TBL.n[TBL.n_idx].y * 256;
+    switch (pos) {
+        case 1:
+        case 3:
+        case 6:
+        case 8:
+        case 10:
+        case 1 + 12:
+        case 3 + 12:
+        case 6 + 12:
+        case 8 + 12:
+        case 10 + 12:
+            TBL.n[TBL.n_idx].gx = 16;
+            break;
+        default:
+            TBL.n[TBL.n_idx].gx = 0;
+    }
     TBL.n_idx++;
     TBL.n_idx &= MAX_NOTE - 1;
 }
@@ -111,7 +128,7 @@ void draw_notes() {
     int i;
     for (i = 0; i < MAX_NOTE; i++) {
         if (TBL.n[i].flag) {
-            vgs2_boxfSP(TBL.n[i].x, TBL.n[i].y, TBL.n[i].x + 16, TBL.n[i].y + 4, 111);
+            vgs2_putSP(1, TBL.n[i].gx, 0, 16, 4, TBL.n[i].x, TBL.n[i].y);
             TBL.n[i].fy += NOTES_SPEED;
             TBL.n[i].y = TBL.n[i].fy >> 8;
             if (180 < TBL.n[i].y) {
