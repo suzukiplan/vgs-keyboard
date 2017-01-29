@@ -43,3 +43,4 @@ open VGSKeyboard.xcworkspace
 ```
 あとは、XCodeでビルドすれば起動できます。
 
+> `romdata` の `make` は `git pull` をした時に `romdata` ディレクトリ下が更新される時に再実行する必要があります
