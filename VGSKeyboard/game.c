@@ -36,6 +36,30 @@ static int KEY_MAP[24] = {
     70  // A#2
 };
 
+void draw_lane(int x, int y) {
+    int i;
+    int n = 0;
+    for (i = 0; i < 14; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 51 : 50);
+    }
+    x += 10;
+    for (i = 0; i < 2; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
+    }
+    x += 60;
+    for (i = 0; i < 3; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
+    }
+    x += 80;
+    for (i = 0; i < 2; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
+    }
+    x += 60;
+    for (i = 0; i < 3; i++, n++) {
+        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
+    }
+}
+
 void draw_keyboard(int x, int y) {
     int i;
     int n = 0;
@@ -67,7 +91,8 @@ int vgs2_init() {
 }
 
 int vgs2_loop() {
-    draw_keyboard(0, 180);
+    draw_lane(20, 180);
+    draw_keyboard(20, 180);
     return 0;
 }
 
