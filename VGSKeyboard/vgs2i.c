@@ -143,7 +143,7 @@ int vgsint_init(const char *rompath)
     make_pallet();
 
     /* initialize vgs-spu */
-    _spu = vgsspu_start(sndbuf);
+    _spu = vgsspu_start2(22050, 16, 1, 2048, sndbuf);
     if (NULL == _spu) {
         return -1;
     }
