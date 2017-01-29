@@ -6,6 +6,15 @@
 
 > これはまだ検討中のことですが, 楽曲データの販売でマネタイズしようと思っているので, ゲーム本体はオープンソース＆完全無料で開発する方針です
 
+## TODO
+現時点での進捗を書いておきます（この通りに作るとは限りませんが）
+- [x] MIDIキーボードからの入力に反応する鍵盤を作る
+- [x] MIDIキーボードからの入力に反応するサウンドモジュールを作る
+- [ ] 単発ノーツ
+- [ ] ロング・ノーツ
+- [ ] VGS musicとノーツの連携
+- [ ] 東方VGSの[赤より紅い夢](https://github.com/suzukiplan/Touhou-VGS-MML-data/blob/master/data/BSLOT000.mml)で遊べる状態にする
+
 ## License
 [3 Clause BSD](LICENSE.txt)
 
