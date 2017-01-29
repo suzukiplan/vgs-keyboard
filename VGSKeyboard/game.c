@@ -223,7 +223,7 @@ void draw_notes() {
                     add_bomb(TBL.n[i].pos, TBL.n[i].y);
                 } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 170, 320, 16)) {
                     // bad
-                    puts("bas");
+                    puts("bad");
                     TBL.n[i].flag = 0;
                     add_bomb(TBL.n[i].pos, TBL.n[i].y);
                 }
@@ -234,6 +234,7 @@ void draw_notes() {
                 if (200 < TBL.n[i].y) {
                     TBL.n[i].flag = 0;
                     // miss
+                    puts("miss");
                 }
             }
         }
