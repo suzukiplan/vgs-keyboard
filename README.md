@@ -38,15 +38,10 @@
 ```
 git clone https://github.com/suzukiplan/vgs-keyboard.git
 cd vgs-keyboard
-git submodule init
-git submodule update
-pod update
-pod install
-cd romdata
-make
-cd ..
-open VGSKeyboard.xcworkspace
+make init
 ```
 あとは、XCodeでビルドすれば起動できます。
 
-> `romdata` の `make` は `git pull` をした時に `romdata` ディレクトリ下が更新される時に再実行する必要があります
+> - `make rom` は最新状態への更新（`git pull`）をした時に `romdata` ディレクトリ下が更新される時に再実行する必要があります
+> - `make init` に失敗する場合 [Requirements](#Requirements) の環境が整っていないものと考えられます
+
