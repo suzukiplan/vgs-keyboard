@@ -37,6 +37,8 @@
 ```
 git clone https://github.com/suzukiplan/vgs-keyboard.git
 cd vgs-keyboard
+git submodule init
+git submodule update
 pod update
 pod install
 cd romdata
