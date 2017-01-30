@@ -43,5 +43,5 @@ make init
 あとは、XCodeでビルドすれば起動できます。
 
 > - `make rom` は最新状態への更新（`git pull`）をした時に `romdata` ディレクトリ下が更新される時に再実行する必要があります
-> - `make init` に失敗する場合 [Requirements](#Requirements) の環境が整っていないものと考えられます
+> - `make init` に失敗する場合 [Requirements](#requirements) の環境が整っていないものと考えられます
 
