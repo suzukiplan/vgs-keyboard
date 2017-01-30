@@ -112,6 +112,12 @@ struct Bomb {
     int y;
 };
 
+struct Result {
+    int flag;
+    int type;
+    int an;
+};
+
 struct ScoreElement {
     int pos;
     int interval;
@@ -135,9 +141,36 @@ struct GameTable {
     int b_idx;
     int push[24];
     int prev[24];
+    struct Result r;
     int spos;
     int z;
 } TBL;
+
+void show_result(int type) {
+    TBL.r.flag = 1;
+    TBL.r.type = type;
+    TBL.r.an = 0;
+}
+
+void draw_result() {
+    if (TBL.r.flag) {
+        int ys;
+        int xs = TBL.r.an * 8;
+        if (xs < 0) {
+            xs = 1;
+        } else if (80 < xs) {
+            xs = 80;
+        }
+        ys = xs * 3 / 10;
+        if (ys) {
+            vgs2_putSPE(3, 0, TBL.r.type * 24, 80, 24, (320 - xs) / 2, (240 - ys) / 2 - 80, xs, ys);
+        }
+        TBL.r.an++;
+        if (30 < TBL.r.an) {
+            TBL.r.flag = 0;
+        }
+    }
+}
 
 void push_check() {
     int i, now;
@@ -208,22 +241,22 @@ void draw_notes() {
             if (TBL.push[TBL.n[i].pos]) {
                 if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 176, 320, 4)) {
                     // perfect
-                    puts("perfect");
+                    show_result(4);
                     TBL.n[i].flag = 0;
                     add_bomb(TBL.n[i].pos, TBL.n[i].y);
                 } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 174, 320, 8)) {
                     // great
-                    puts("great");
+                    show_result(3);
                     TBL.n[i].flag = 0;
                     add_bomb(TBL.n[i].pos, TBL.n[i].y);
                 } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 172, 320, 12)) {
                     // good
-                    puts("good");
+                    show_result(2);
                     TBL.n[i].flag = 0;
                     add_bomb(TBL.n[i].pos, TBL.n[i].y);
                 } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 170, 320, 16)) {
                     // bad
-                    puts("bad");
+                    show_result(1);
                     TBL.n[i].flag = 0;
                     add_bomb(TBL.n[i].pos, TBL.n[i].y);
                 }
@@ -234,7 +267,7 @@ void draw_notes() {
                 if (200 < TBL.n[i].y) {
                     TBL.n[i].flag = 0;
                     // miss
-                    puts("miss");
+                    show_result(0);
                 }
             }
         }
@@ -268,6 +301,7 @@ void draw_lane(int x, int y) {
 void draw_keyboard(int x, int y) {
     int i;
     int n = 0;
+    vgs2_boxfSP(0, y, 320, 240, 3);
     for (i = 0; i < 14; i++, n++) {
         vgs2_boxfSP(i * 20 + x, y, i * 20 + x + 18, y + 56, KEY_FLAG[KEY_MAP[n]] ? 31 : 111);
     }
@@ -318,6 +352,7 @@ int vgs2_loop() {
     push_check();
     draw_lane(20, 180);
     vgs2_boxSP(0, 176, 320, 179, 105);
+    draw_result();
     draw_notes();
     draw_bomb();
     draw_keyboard(20, 180);

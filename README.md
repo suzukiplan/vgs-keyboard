@@ -15,7 +15,7 @@
 - [x] 単発ノーツ
 - [ ] ロング・ノーツ
 - [ ] コンボ
-- [ ] 判定演出
+- [x] 判定演出
 - [ ] VGS musicとノーツの連携
 - [ ] 東方VGSの[赤より紅い夢](https://github.com/suzukiplan/Touhou-VGS-MML-data/blob/master/data/BSLOT000.mml)で遊べる状態にする
 
