@@ -210,7 +210,7 @@ void draw_bomb() {
 void add_note(int pos) {
     TBL.n[TBL.n_idx].flag = 1;
     TBL.n[TBL.n_idx].pos = pos;
-    TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20 + 1;
+    TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20 + 3;
     TBL.n[TBL.n_idx].y = -4;
     TBL.n[TBL.n_idx].fy = TBL.n[TBL.n_idx].y * 256;
     switch (pos) {
@@ -275,26 +275,12 @@ void draw_notes() {
 }
 
 void draw_lane(int x, int y) {
+    static unsigned char c[15] = {
+        102, 13, 13, 102, 13, 13, 13, 102, 13, 13, 102, 13, 13, 13, 102
+    };
     int i;
-    int n = 0;
-    for (i = 0; i < 14; i++, n++) {
-        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 51 : 50);
-    }
-    x += 10;
-    for (i = 0; i < 2; i++, n++) {
-        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
-    }
-    x += 60;
-    for (i = 0; i < 3; i++, n++) {
-        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
-    }
-    x += 80;
-    for (i = 0; i < 2; i++, n++) {
-        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
-    }
-    x += 60;
-    for (i = 0; i < 3; i++, n++) {
-        vgs2_boxfSP(i * 20 + x + 8, 0, i * 20 + x + 9, y, KEY_FLAG[KEY_MAP[n]] ? 10 : 9);
+    for (i = 0; i < 15; i++) {
+        vgs2_lineSP(i * 20 + x, 0, i * 20 + x, y - 4, c[i]);
     }
 }
 
@@ -351,11 +337,11 @@ int vgs2_loop() {
     }
     push_check();
     draw_lane(20, 180);
-    vgs2_boxSP(0, 176, 320, 179, 105);
+    vgs2_boxSP(0, 176, 319, 179, 105);
     draw_result();
     draw_notes();
     draw_bomb();
-    draw_keyboard(20, 180);
+    draw_keyboard(21, 180);
     return 0;
 }
 
