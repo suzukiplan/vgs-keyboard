@@ -256,7 +256,7 @@ void draw_combo() {
 void add_bomb(int pos, int y) {
     TBL.b[TBL.b_idx].flag = 1;
     TBL.b[TBL.b_idx].an = 0;
-    TBL.b[TBL.b_idx].x = POS_MAP[pos] + 20 + 1 - 4;
+    TBL.b[TBL.b_idx].x = POS_MAP[pos] + 20 + 1 - 2;
     TBL.b[TBL.b_idx].y = y - 10;
     TBL.b_idx++;
     TBL.b_idx &= MAX_NOTE - 1;
@@ -279,7 +279,7 @@ void add_note(int pos, int len) {
     TBL.n[TBL.n_idx].flag = 1;
     TBL.n[TBL.n_idx].pos = pos;
     TBL.n[TBL.n_idx].len = len;
-    TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20 + 3;
+    TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20 + 2;
     TBL.n[TBL.n_idx].y = -4;
     TBL.n[TBL.n_idx].fy = TBL.n[TBL.n_idx].y * 256;
     switch (pos) {
@@ -319,7 +319,9 @@ void draw_notes() {
                         vgs2_lineSP(TBL.n[i].x + 8 + j, ey + 4, TBL.n[i].x + 8 + j, TBL.n[i].y, 76 - j * 2);
                     }
                 }
-                vgs2_putSP(1, 32, 0, 16, 4, TBL.n[i].x, TBL.n[i].y);
+                if (1 == TBL.n[i].flag) {
+                    vgs2_putSP(1, 32, 0, 16, 4, TBL.n[i].x, TBL.n[i].y);
+                }
                 vgs2_putSP(1, 32, 0, 16, 4, TBL.n[i].x, ey);
                 if (1 == TBL.n[i].flag) {
                     if (TBL.keyDown[TBL.n[i].pos]) {
@@ -327,18 +329,22 @@ void draw_notes() {
                             // perfect
                             show_result(4);
                             TBL.n[i].flag++;
+                            add_bomb(TBL.n[i].pos, TBL.n[i].y);
                         } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 174, 320, 8)) {
                             // great
                             show_result(3);
                             TBL.n[i].flag++;
+                            add_bomb(TBL.n[i].pos, TBL.n[i].y);
                         } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 172, 320, 12)) {
                             // good
                             show_result(2);
                             TBL.n[i].flag++;
+                            add_bomb(TBL.n[i].pos, TBL.n[i].y);
                         } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 170, 320, 16)) {
                             // bad
                             show_result(1);
                             TBL.n[i].flag++;
+                            add_bomb(TBL.n[i].pos, TBL.n[i].y);
                         }
                     }
                 } else if (2 == TBL.n[i].flag) {
