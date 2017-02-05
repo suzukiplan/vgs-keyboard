@@ -152,12 +152,58 @@ struct GameTable {
     struct Result r;
     int spos;
     int z;
+    int combo;
 } TBL;
+
+void myprint(int x, int y, const char *msg, ...)
+{
+    char buf[256];
+    int i;
+    int c;
+    int d;
+    va_list args;
+    
+    va_start(args, msg);
+    vsprintf(buf, msg, args);
+    va_end(args);
+    
+    for (i = 0; '\0' != (c = (int)buf[i]); i++, x += 8) {
+        c -= 0x20;
+        c &= 0x7f;
+        d = c >> 4;
+        vgs2_putSP(0, (c - (d << 4)) << 3, d << 3, 8, 8, x, y);
+    }
+}
+
+void myprintS(int x, int y, const char *msg, ...)
+{
+    char buf[256];
+    int i;
+    int c;
+    int d;
+    va_list args;
+    
+    va_start(args, msg);
+    vsprintf(buf, msg, args);
+    va_end(args);
+    
+    for (i = 0; '\0' != (c = (int)buf[i]); i++, x += 4) {
+        c -= 0x20;
+        c &= 0x7f;
+        d = c >> 5;
+        vgs2_putSP(0, (c - (d << 5)) << 2, 48 + (d << 3), 4, 8, x, y);
+    }
+}
 
 void show_result(int type) {
     TBL.r.flag = 1;
     TBL.r.type = type;
     TBL.r.an = 0;
+    if (3 <= type) {
+        TBL.combo++;
+    } else {
+        TBL.combo = 0;
+    }
 }
 
 void draw_result() {
@@ -198,6 +244,12 @@ void push_check() {
             }
         }
         TBL.prev[i] = now;
+    }
+}
+
+void draw_combo() {
+    if (2 <= TBL.combo) {
+        myprint(224, 20, "%5d COMBO", TBL.combo);
     }
 }
 
@@ -438,6 +490,7 @@ int vgs2_loop() {
     draw_lane(20, 180);
     vgs2_boxSP(0, 176, 319, 179, 105);
     draw_result();
+    draw_combo();
     draw_notes();
     draw_bomb();
     draw_keyboard(21, 180);
