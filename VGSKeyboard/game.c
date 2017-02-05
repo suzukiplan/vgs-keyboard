@@ -103,6 +103,7 @@ struct Note {
     int y;
     int x;
     int gx;
+    int len;
 };
 
 struct Bomb {
@@ -120,18 +121,23 @@ struct Result {
 
 struct ScoreElement {
     int pos;
+    int len;
     int interval;
 };
 
+#define L16 10
+#define L8 20
 #define L4 40
+#define L2 80
+#define L1 160
 
 struct ScoreElement KAERU[] = {
-    {12, L4}, {14, L4}, {16, L4}, {17, L4}, {16, L4}, {14, L4}, {12, L4 * 2},
-    {16, L4}, {17, L4}, {19, L4}, {21, L4}, {19, L4}, {17, L4}, {16, L4 * 2},
-    {12, L4 * 2}, {12, L4 * 2}, {12, L4 * 2}, {12, L4 * 2},
-    {12, L4 / 2}, {12, L4 / 2}, {14, L4 / 2}, {14, L4 / 2}, {16, L4 / 2}, {16, L4 / 2},
-    {17, L4 / 2}, {17, L4 / 2}, {16, L4}, {14, L4}, {12, L4 * 4},
-    {0, 0}
+    {12, L8, L4}, {14, L8, L4}, {16, L8, L4}, {17, L8, L4}, {16, L8, L4}, {14, L8, L4}, {12, L4, L2},
+    {16, L8, L4}, {17, L8, L4}, {19, L8, L4}, {21, L8, L4}, {19, L8, L4}, {17, L8, L4}, {16, L4, L2},
+    {12, 0, L2}, {12, 0, L2}, {12, 0, L2}, {12, 0, L2},
+    {12, 0, L8}, {12, 0, L8}, {14, 0, L8}, {14, 0, L8}, {16, 0, L8}, {16, 0, L8},
+    {17, 0, L8}, {17, 0, L8}, {16, L8, L4}, {14, L8, L4}, {12, L2, L1},
+    {0, 0, 0}
 };
 
 struct GameTable {
@@ -139,7 +145,9 @@ struct GameTable {
     int n_idx;
     struct Bomb b[MAX_NOTE];
     int b_idx;
-    int push[24];
+    int keyDown[24];
+    int prevDown[24];
+    int keyUp[24];
     int prev[24];
     struct Result r;
     int spos;
@@ -176,10 +184,18 @@ void push_check() {
     int i, now;
     for (i = 0; i < 24; i++) {
         now = KEY_FLAG[KEY_MAP2[i]];
-        if (now && !TBL.prev[i]) {
-            TBL.push[i] = 1;
+        if (now) {
+            if (!TBL.prev[i]) {
+                TBL.keyDown[i] = 1;
+            } else {
+                TBL.keyDown[i] = 0;
+            }
         } else {
-            TBL.push[i] = 0;
+            if (TBL.prev[i]) {
+                TBL.keyUp[i] = 1;
+            } else {
+                TBL.keyUp[i] = 0;
+            }
         }
         TBL.prev[i] = now;
     }
@@ -207,9 +223,10 @@ void draw_bomb() {
     }
 }
 
-void add_note(int pos) {
+void add_note(int pos, int len) {
     TBL.n[TBL.n_idx].flag = 1;
     TBL.n[TBL.n_idx].pos = pos;
+    TBL.n[TBL.n_idx].len = len;
     TBL.n[TBL.n_idx].x = POS_MAP[pos] + 20 + 3;
     TBL.n[TBL.n_idx].y = -4;
     TBL.n[TBL.n_idx].fy = TBL.n[TBL.n_idx].y * 256;
@@ -234,40 +251,122 @@ void add_note(int pos) {
 }
 
 void draw_notes() {
-    int i;
+    int i, ey, j;
     for (i = 0; i < MAX_NOTE; i++) {
         if (TBL.n[i].flag) {
-            vgs2_putSP(1, TBL.n[i].gx, 0, 16, 4, TBL.n[i].x, TBL.n[i].y);
-            if (TBL.push[TBL.n[i].pos]) {
-                if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 176, 320, 4)) {
-                    // perfect
-                    show_result(4);
-                    TBL.n[i].flag = 0;
-                    add_bomb(TBL.n[i].pos, TBL.n[i].y);
-                } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 174, 320, 8)) {
-                    // great
-                    show_result(3);
-                    TBL.n[i].flag = 0;
-                    add_bomb(TBL.n[i].pos, TBL.n[i].y);
-                } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 172, 320, 12)) {
-                    // good
-                    show_result(2);
-                    TBL.n[i].flag = 0;
-                    add_bomb(TBL.n[i].pos, TBL.n[i].y);
-                } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 170, 320, 16)) {
-                    // bad
-                    show_result(1);
-                    TBL.n[i].flag = 0;
-                    add_bomb(TBL.n[i].pos, TBL.n[i].y);
+            if (TBL.n[i].len) {
+                ey = TBL.n[i].y - ((NOTES_SPEED * TBL.n[i].len) >> 8) - 4;
+                if (TBL.n[i].gx) {
+                    for (j = 0; j < 7; j++) {
+                        vgs2_lineSP(TBL.n[i].x + 7 - j, ey + 4, TBL.n[i].x + 7 - j, TBL.n[i].y, 60 - j * 2);
+                        vgs2_lineSP(TBL.n[i].x + 8 + j, ey + 4, TBL.n[i].x + 8 + j, TBL.n[i].y, 60 - j * 2);
+                    }
+                } else {
+                    for (j = 0; j < 7; j++) {
+                        vgs2_lineSP(TBL.n[i].x + 7 - j, ey + 4, TBL.n[i].x + 7 - j, TBL.n[i].y, 76 - j * 2);
+                        vgs2_lineSP(TBL.n[i].x + 8 + j, ey + 4, TBL.n[i].x + 8 + j, TBL.n[i].y, 76 - j * 2);
+                    }
                 }
-            }
-            if (TBL.n[i].flag) {
-                TBL.n[i].fy += NOTES_SPEED;
-                TBL.n[i].y = TBL.n[i].fy >> 8;
-                if (200 < TBL.n[i].y) {
-                    TBL.n[i].flag = 0;
-                    // miss
-                    show_result(0);
+                vgs2_putSP(1, 32, 0, 16, 4, TBL.n[i].x, TBL.n[i].y);
+                vgs2_putSP(1, 32, 0, 16, 4, TBL.n[i].x, ey);
+                if (1 == TBL.n[i].flag) {
+                    if (TBL.keyDown[TBL.n[i].pos]) {
+                        if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 176, 320, 4)) {
+                            // perfect
+                            show_result(4);
+                            TBL.n[i].flag++;
+                        } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 174, 320, 8)) {
+                            // great
+                            show_result(3);
+                            TBL.n[i].flag++;
+                        } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 172, 320, 12)) {
+                            // good
+                            show_result(2);
+                            TBL.n[i].flag++;
+                        } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 170, 320, 16)) {
+                            // bad
+                            show_result(1);
+                            TBL.n[i].flag++;
+                        }
+                    }
+                } else if (2 == TBL.n[i].flag) {
+                    if (TBL.keyUp[TBL.n[i].pos]) {
+                        if (HITCHK(TBL.n[i].x, ey, 16, 4, 0, 176, 320, 4)) {
+                            // perfect
+                            show_result(4);
+                            TBL.n[i].flag = 0;
+                            add_bomb(TBL.n[i].pos, ey);
+                        } else if (HITCHK(TBL.n[i].x, ey, 16, 4, 0, 174, 320, 8)) {
+                            // great
+                            show_result(3);
+                            TBL.n[i].flag = 0;
+                            add_bomb(TBL.n[i].pos, ey);
+                        } else if (HITCHK(TBL.n[i].x, ey, 16, 4, 0, 172, 320, 12)) {
+                            // good
+                            show_result(2);
+                            TBL.n[i].flag = 0;
+                        } else if (HITCHK(TBL.n[i].x, ey, 16, 4, 0, 170, 320, 16)) {
+                            // bad
+                            show_result(1);
+                            TBL.n[i].flag = 0;
+                        } else {
+                            // miss
+                            show_result(0);
+                            TBL.n[i].flag = 0;
+                        }
+                    }
+                }
+                if (TBL.n[i].flag) {
+                    TBL.n[i].fy += NOTES_SPEED;
+                    TBL.n[i].y = TBL.n[i].fy >> 8;
+                    if (1 == TBL.n[i].flag) {
+                        if (200 < TBL.n[i].y) {
+                            TBL.n[i].flag = 0;
+                            // miss
+                            show_result(0);
+                        }
+                    } else if (2 == TBL.n[i].flag) {
+                        ey = TBL.n[i].y - ((NOTES_SPEED * TBL.n[i].len) >> 8) - 4;
+                        if (200 < ey) {
+                            TBL.n[i].flag = 0;
+                            // miss
+                            show_result(0);
+                        }
+                    }
+                }
+            } else {
+                vgs2_putSP(1, TBL.n[i].gx, 0, 16, 4, TBL.n[i].x, TBL.n[i].y);
+                if (TBL.keyDown[TBL.n[i].pos]) {
+                    if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 176, 320, 4)) {
+                        // perfect
+                        show_result(4);
+                        TBL.n[i].flag = 0;
+                        add_bomb(TBL.n[i].pos, TBL.n[i].y);
+                    } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 174, 320, 8)) {
+                        // great
+                        show_result(3);
+                        TBL.n[i].flag = 0;
+                        add_bomb(TBL.n[i].pos, TBL.n[i].y);
+                    } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 172, 320, 12)) {
+                        // good
+                        show_result(2);
+                        TBL.n[i].flag = 0;
+                        add_bomb(TBL.n[i].pos, TBL.n[i].y);
+                    } else if (HITCHK(TBL.n[i].x, TBL.n[i].y, 16, 4, 0, 170, 320, 16)) {
+                        // bad
+                        show_result(1);
+                        TBL.n[i].flag = 0;
+                        add_bomb(TBL.n[i].pos, TBL.n[i].y);
+                    }
+                }
+                if (TBL.n[i].flag) {
+                    TBL.n[i].fy += NOTES_SPEED;
+                    TBL.n[i].y = TBL.n[i].fy >> 8;
+                    if (200 < TBL.n[i].y) {
+                        TBL.n[i].flag = 0;
+                        // miss
+                        show_result(0);
+                    }
                 }
             }
         }
@@ -321,7 +420,7 @@ int vgs2_init() {
 int vgs2_loop() {
     static unsigned int frame;
     if (0 == frame) {
-        add_note(KAERU[TBL.spos].pos + TBL.z);
+        add_note(KAERU[TBL.spos].pos + TBL.z, KAERU[TBL.spos].len);
     }
     frame++;
     if (KAERU[TBL.spos].interval <= frame) {

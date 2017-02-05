@@ -13,9 +13,11 @@
 - [x] MIDIキーボードからの入力に反応する鍵盤を作る
 - [x] MIDIキーボードからの入力に反応するサウンドモジュールを作る
 - [x] 単発ノーツ
-- [ ] ロング・ノーツ
+- [x] ロング・ノーツ
 - [ ] コンボ
 - [x] 判定演出
+- [ ] キーオン演出
+- [ ] ロング・ノーツが削れる演出
 - [ ] VGS musicとノーツの連携
 - [ ] 東方VGSの[赤より紅い夢](https://github.com/suzukiplan/Touhou-VGS-MML-data/blob/master/data/BSLOT000.mml)で遊べる状態にする
 
